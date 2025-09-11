@@ -1,103 +1,179 @@
-import Image from "next/image";
+"use client";
+import Intro from "./intro/page";
+import About from "./about/page";
+import What_i_do from "./what-i-do/page";
+import Skills from "./skills/page";
+import Experience from "./experience/page";
+import Portfolio from "./portfolio/page";
+import Contact from "./contact/page";
+import Footer from "./footer/page";
+import React, { useState, useEffect } from "react";
+import { AiOutlinePlus } from "react-icons/ai";
+import { Poppins } from "next/font/google";
+import { motion } from "framer-motion";
 
-export default function Home() {
+const poppins = Poppins({
+  weight: ["400", "600", "700"],
+  subsets: ["latin"],
+});
+
+export default function HomePage() {
+  const sections = [
+    { id: "intro", label: "Intro" },
+    { id: "about", label: "About" },
+    { id: "what-i-do", label: "What I Do" },
+    { id: "skills", label: "Skills" },
+    { id: "experience", label: "Experience" },
+    { id: "portfolio", label: "Portfolio" },
+    { id: "contact", label: "Contact" },
+  ];
+
+  const [activeSection, setActiveSection] = useState("intro");
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      let current = "intro";
+      sections.forEach((section) => {
+        const element = document.getElementById(section.id);
+        if (element) {
+          const top = element.offsetTop - window.innerHeight / 2 + 50;
+          if (window.scrollY >= top) {
+            current = section.id;
+          }
+        }
+      });
+      setActiveSection(current);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+    setIsAnimating(true);
+    setTimeout(() => setIsAnimating(false), 300); // lebih cepat
+  };
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.js
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <main className={`scroll-smooth relative ${poppins.className}`}>
+      {/* Sidebar Desktop */}
+      {activeSection !== "intro" && (
+        <div className="hidden md:flex fixed right-10 top-1/2 -translate-y-1/2 flex-col gap-5 z-50">
+          {sections.map((section) => {
+            const isActive = activeSection === section.id;
+            return (
+              <div
+                key={section.id}
+                className="relative flex items-center group"
+              >
+                <span
+                  className={`absolute right-full mr-4 top-1/2 -translate-y-1/2
+                    px-3 py-1 rounded bg-blue-500 text-white text-sm whitespace-nowrap
+                    transition-all duration-500 ease-in-out
+                    ${
+                      isActive
+                        ? "opacity-100 scale-100"
+                        : "opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100"
+                    }`}
+                >
+                  {section.label}
+                </span>
+                <a
+                  href={`#${section.id}`}
+                  className={`w-4 h-4 rounded-full transition-all duration-300 transform cursor-pointer
+                    ${isActive ? "bg-blue-500 scale-125" : "bg-gray-400"}
+                    group-hover:scale-125`}
+                  title={section.label}
+                ></a>
+              </div>
+            );
+          })}
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      )}
+
+      {/* Tombol Mobile */}
+      <button
+        className="md:hidden fixed top-5 right-5 z-50 h-6 flex items-center"
+        onClick={toggleMenu}
+      >
+        {/* Wrapper teks dengan marquee */}
+        <div className="relative h-full overflow-hidden flex items-center">
+          {isAnimating ? (
+            <motion.div
+              className="relative h-full overflow-hidden"
+              animate={{ y: ["0%", "-100%"] }}
+              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+            >
+              <div className="flex flex-col">
+                {Array(15) // ulang teks 15 kali agar terlihat banyak
+                  .fill(0)
+                  .map((_, i) => (
+                    <span
+                      key={i}
+                      className="text-black font-bold text-sm tracking-widest"
+                    >
+                      {menuOpen ? "close" : "open"}
+                    </span>
+                  ))}
+              </div>
+            </motion.div>
+          ) : (
+            <span
+              className={`font-bold text-sm tracking-widest transition-colors duration-300 ${
+                menuOpen ? "text-black" : "text-white"
+              }`}
+            >
+              {menuOpen ? "close" : "open"}
+            </span>
+          )}
+        </div>
+
+        {/* Icon + */}
+        <AiOutlinePlus
+          size={16}
+          className={`transform transition-transform duration-500 ml-0 ${
+            menuOpen ? "rotate-45 text-black" : "rotate-0 text-white"
+          }`}
+        />
+      </button>
+
+      {/* Sidebar Mobile */}
+      <div
+        className={`fixed top-0 right-0 h-full w-1/2 bg-white shadow-lg z-40 transform transition-transform duration-500 ease-in-out
+        ${menuOpen ? "translate-x-0" : "translate-x-full"} md:hidden`}
+      >
+        <ul className="flex flex-col gap-6 p-10 mt-10 text-lg font-semibold text-gray-800">
+          {sections.map((section) => (
+            <li key={section.id}>
+              <a
+                href={`#${section.id}`}
+                onClick={() => setMenuOpen(false)}
+                className={`block transition-colors duration-300 ${
+                  activeSection === section.id
+                    ? "text-blue-500"
+                    : "hover:text-blue-500"
+                }`}
+              >
+                {section.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Konten */}
+      <Intro />
+      <About />
+      <What_i_do />
+      <Skills />
+      <Experience />
+      <Portfolio />
+      <Contact />
+      <Footer />
+    </main>
   );
 }
