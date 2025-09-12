@@ -20,7 +20,7 @@ export default function Portfolio() {
         <SiNextdotjs key="react" color="#000000" />,
         <SiTailwindcss key="tailwind" color="#06B6D4" />,
       ],
-      link: "https://timortrans.com",
+      link: "https://timor-travel.vercel.app/",
     },
     {
       title: "Web Profil & Administrasi Desa",
