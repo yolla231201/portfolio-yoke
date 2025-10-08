@@ -15,42 +15,42 @@ export default function Experience() {
       date: "2019 - 2023",
       description:
         "Belajar ilmu komputer, pemrograman, dan dasar-dasar desain grafis.",
-      icon: <FaBook size={20} />,
+      icon: <FaBook size={20} color="#fff" />,
     },
     {
       title: "Tim Promosi & Desain Grafis",
       company: "Pendidikan Biologi UNWIRA",
       date: "Mar 2021 - Mei 2021",
       description: "Membuat desain promosi dan materi visual.",
-      icon: <FaPaintBrush size={20} />,
+      icon: <FaPaintBrush size={20} color="#fff" />,
     },
     {
       title: "Desain Grafis & Web Developer",
       company: "Pendidikan Biologi UNWIRA",
       date: "Mar 2023 - Des 2023",
       description: "Mendesain materi digital dan membangun website internal.",
-      icon: <FaLaptopCode size={20} />,
+      icon: <FaLaptopCode size={20} color="#fff" />,
     },
     {
       title: "Project Skripsi: IoT & WSN",
       company: "UNWIRA",
       date: "2023",
       description: "Mengembangkan proyek skripsi berbasis IoT dan WSN.",
-      icon: <FaMicrochip size={20} />,
+      icon: <FaMicrochip size={20} color="#fff" />,
     },
     {
       title: "Freelance Web Developer",
       company: "Self-employed",
       date: "2023 - Sekarang",
       description: "Membangun website untuk klien dari berbagai bidang.",
-      icon: <FaLaptopCode size={20} />,
+      icon: <FaLaptopCode size={20} color="#fff" />,
     },
     {
       title: "Freelance Desain Grafis",
       company: "Self-employed",
       date: "2023 - Sekarang",
       description: "Mendesain branding, poster, dan materi digital.",
-      icon: <FaPaintBrush size={20} />,
+      icon: <FaPaintBrush size={20} color="#fff" />,
     },
   ];
 
@@ -63,7 +63,7 @@ export default function Experience() {
       </h2>
 
       <div className="relative max-w-5xl mx-auto">
-        {/* Garis timeline tengah */}
+        {/* Garis timeline tengah (desktop only) */}
         <div className="hidden md:block absolute left-1/2 top-0 transform -translate-x-1/2 h-full border-l-4 border-indigo-300"></div>
 
         <div className="space-y-16">
@@ -78,7 +78,7 @@ export default function Experience() {
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
               >
-                {/* Card kiri atau kanan */}
+                {/* Card */}
                 <div
                   className={`md:w-1/2 ${
                     isLeft
@@ -87,7 +87,7 @@ export default function Experience() {
                   } flex justify-center md:relative`}
                 >
                   <div
-                    className={`inline-block bg-gray-800 p-6 rounded-lg shadow-md relative transition-all duration-300 w-full md:w-auto ${
+                    className={`inline-block p-6 rounded-lg shadow-md transition-all duration-300 w-full md:w-auto ${
                       isHovered ? "bg-indigo-500" : "bg-gray-800"
                     }`}
                   >
@@ -98,7 +98,7 @@ export default function Experience() {
                     <p className="text-sm text-gray-200">{exp.date}</p>
                     <p className="mt-2 text-gray-200">{exp.description}</p>
 
-                    {/* Segitiga (desktop only) */}
+                    {/* Segitiga arah (desktop only) */}
                     {isLeft ? (
                       <div
                         className={`hidden md:block absolute top-5 right-[-25px] w-0 h-0
@@ -132,7 +132,7 @@ export default function Experience() {
                     ${isHovered ? "bg-indigo-500" : "bg-gray-800"}
                     transition-colors duration-300`}
                 >
-                  {React.cloneElement(exp.icon, { color: "#fff" })}
+                  {exp.icon}
                 </div>
               </div>
             );
@@ -141,5 +141,5 @@ export default function Experience() {
       </div>
     </section>
   );
-}
-                      
+                  }
+    
