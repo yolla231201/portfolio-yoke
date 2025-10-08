@@ -57,13 +57,14 @@ export default function Experience() {
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
   return (
-    <section id="experience" className="relative py-16 bg-gray-400 px-10">
+    <section id="experience" className="relative py-16 bg-gray-400 px-4 sm:px-10">
       <h2 className="text-3xl font-bold text-center mb-20 text-gray-800">
         Experience
       </h2>
+
       <div className="relative max-w-5xl mx-auto">
         {/* Garis timeline tengah */}
-        <div className="absolute left-1/2 top-0 transform -translate-x-1/2 h-full border-3 border-indigo-300"></div>
+        <div className="hidden md:block absolute left-1/2 top-0 transform -translate-x-1/2 h-full border-l-4 border-indigo-300"></div>
 
         <div className="space-y-16">
           {experiences.map((exp, index) => {
@@ -73,78 +74,65 @@ export default function Experience() {
             return (
               <div
                 key={index}
-                className="relative flex w-full justify-between items-start"
+                className={`relative flex flex-col md:flex-row w-full md:justify-between items-center md:items-start`}
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
               >
-                {/* Card kiri */}
-                {isLeft ? (
-                  <div className="w-1/2 pr-20 flex justify-end relative -translate-y-12">
-                    <div
-                      className={`inline-block bg-gray-800 p-6 rounded-lg shadow-md relative z-0
-                        
-                        ${isHovered ? "bg-indigo-500" : "bg-gray-800"}`}
-                    >
-                      <h3 className="text-xl font-semibold text-white">
-                        {exp.title}
-                      </h3>
-                      <p className="text-sm text-gray-300">{exp.company}</p>
-                      <p className="text-sm text-gray-200">{exp.date}</p>
-                      <p className="mt-2 text-gray-200">{exp.description}</p>
+                {/* Card kiri atau kanan */}
+                <div
+                  className={`md:w-1/2 ${
+                    isLeft
+                      ? "md:pr-20 md:justify-end"
+                      : "md:pl-20 md:justify-start md:ml-auto"
+                  } flex justify-center md:relative`}
+                >
+                  <div
+                    className={`inline-block bg-gray-800 p-6 rounded-lg shadow-md relative transition-all duration-300 w-full md:w-auto ${
+                      isHovered ? "bg-indigo-500" : "bg-gray-800"
+                    }`}
+                  >
+                    <h3 className="text-xl font-semibold text-white">
+                      {exp.title}
+                    </h3>
+                    <p className="text-sm text-gray-300">{exp.company}</p>
+                    <p className="text-sm text-gray-200">{exp.date}</p>
+                    <p className="mt-2 text-gray-200">{exp.description}</p>
 
-                      {/* Segitiga kanan */}
+                    {/* Segitiga (desktop only) */}
+                    {isLeft ? (
                       <div
-                        className={`absolute top-5 right-[-25px] w-0 h-0
-                         border-t-[28px] border-b-[28px] border-l-[28px]
-                         border-t-transparent border-b-transparent
-                         ${
-                           isHovered
-                             ? "border-l-indigo-500"
-                             : "border-l-gray-800"
-                         }`}
+                        className={`hidden md:block absolute top-5 right-[-25px] w-0 h-0
+                          border-t-[28px] border-b-[28px] border-l-[28px]
+                          border-t-transparent border-b-transparent
+                          ${
+                            isHovered
+                              ? "border-l-indigo-500"
+                              : "border-l-gray-800"
+                          }`}
                       ></div>
-                    </div>
-                  </div>
-                ) : (
-                  // Card kanan
-                  <div className="w-1/2 pl-20 flex justify-start relative ml-auto -translate-y-12">
-                    <div
-                      className={`inline-block bg-gray-800 p-6 rounded-lg shadow-md relative z-0
-                        
-                        ${isHovered ? "bg-indigo-500" : "bg-gray-800"}`}
-                    >
-                      <h3 className="text-xl font-semibold text-white">
-                        {exp.title}
-                      </h3>
-                      <p className="text-sm text-gray-300">{exp.company}</p>
-                      <p className="text-sm text-gray-200">{exp.date}</p>
-                      <p className="mt-2 text-gray-200">{exp.description}</p>
-
-                      {/* Segitiga kiri */}
+                    ) : (
                       <div
-                        className={`absolute top-5 left-[-25px] w-0 h-0
-                         border-t-[28px] border-b-[28px] border-r-[28px]
-                         border-t-transparent border-b-transparent
-                         ${
-                           isHovered
-                             ? "border-r-indigo-500"
-                             : "border-r-gray-800"
-                         }`}
+                        className={`hidden md:block absolute top-5 left-[-25px] w-0 h-0
+                          border-t-[28px] border-b-[28px] border-r-[28px]
+                          border-t-transparent border-b-transparent
+                          ${
+                            isHovered
+                              ? "border-r-indigo-500"
+                              : "border-r-gray-800"
+                          }`}
                       ></div>
-                    </div>
+                    )}
                   </div>
-                )}
+                </div>
 
                 {/* Lingkaran icon */}
                 <div
-                  className={`absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full flex items-center justify-center
-                  ${
-                    isHovered ? "bg-indigo-500" : "bg-gray-800"
-                  } transition-colors duration-300`}
+                  className={`absolute md:left-1/2 transform md:-translate-x-1/2 md:-translate-y-1/2 
+                    w-12 h-12 rounded-full flex items-center justify-center mt-6 md:mt-0
+                    ${isHovered ? "bg-indigo-500" : "bg-gray-800"}
+                    transition-colors duration-300`}
                 >
-                  {React.cloneElement(exp.icon, {
-                    color: isHovered ? "#fff" : "#fff",
-                  })}
+                  {React.cloneElement(exp.icon, { color: "#fff" })}
                 </div>
               </div>
             );
@@ -154,3 +142,4 @@ export default function Experience() {
     </section>
   );
 }
+                      
