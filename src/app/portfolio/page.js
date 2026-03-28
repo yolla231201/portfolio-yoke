@@ -5,8 +5,7 @@ import {
   SiTailwindcss,
   SiVuedotjs,
   SiNextdotjs,
-  SiAdobephotoshop,
-  SiAdobeillustrator,
+  SiAdobe,
 } from "react-icons/si";
 
 export default function Portfolio() {
@@ -50,8 +49,8 @@ export default function Portfolio() {
         "Karya desain grafis profesional untuk branding, promosi, dan keperluan digital maupun cetak.",
       image: "/desain-grafis.jpg",
       tech: [
-        <SiAdobephotoshop key="Photoshop" color="#001E36" />,
-        <SiAdobeillustrator key="Illustrator" color="#FF9A00" />,
+        <SiAdobe key="Photoshop" color="#001E36" />,
+        <SiAdobe key="Illustrator" color="#FF9A00" />,
       ],
       link: "https://drive.google.com/drive/folders/1DxU0Yy3fETrQyB9YPyqsuEFsAxfhKPPi?usp=sharing",
     },
