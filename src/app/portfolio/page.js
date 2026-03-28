@@ -7,7 +7,7 @@ import {
   SiNextdotjs,
 } from "react-icons/si";
 
-import { FaPhotoshop, FaPaintBrush } from "react-icons/fa";
+import { SiAdobephotoshop, SiAdobeillustrator } from "react-icons/si";
 
 export default function Portfolio() {
   const projects = [
@@ -50,8 +50,8 @@ export default function Portfolio() {
         "Karya desain grafis profesional untuk branding, promosi, dan keperluan digital maupun cetak.",
       image: "/desain-grafis.jpg",
       tech: [
-        <FaPhotoshop key="Photoshop" color="#001E36" />,
-        <FaPaintBrush key="Illustrator" color="#FF9A00" />,
+        <SiAdobephotoshop key="Photoshop" color="#001E36" />,
+        <SiAdobeillustrator key="Illustrator" color="#FF9A00" />,
       ],
       link: "https://drive.google.com/drive/folders/1DxU0Yy3fETrQyB9YPyqsuEFsAxfhKPPi?usp=sharing",
     },
